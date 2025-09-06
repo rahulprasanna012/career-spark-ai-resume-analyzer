@@ -94,7 +94,7 @@ export default function ResumeUploader() {
   if (loading)return <Loader/>
 
   // Result state (simplified)
-  if (result) return <Result  result={result}/>
+  if (true) return <Result  />
   
 
   // Upload card

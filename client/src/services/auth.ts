@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import type { LoginTypes, RegisterTypes } from "../types/auth";
 import api from "../utils/api";
 import Cookies from "js-cookie";
@@ -32,11 +31,8 @@ export const register = async (data: RegisterTypes) => {
     if (res.data.token &&res.data.user) {
 
     localStorage.setItem("user",JSON.stringify(res.data.user))        
-      Cookies.set(res.data.token, res.data.token, {
-      expires: 7,
-      sameSite: "Lax",
-      path: "/",
-    });
+           Cookies.set("token", res.data.token, { expires: 7 }); 
+
     }
 
     return res.data; 

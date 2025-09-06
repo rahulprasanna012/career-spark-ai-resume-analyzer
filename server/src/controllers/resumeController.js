@@ -72,6 +72,8 @@ export const getAllResumes = async (req, res) => {
 };
 
 export const getResumeById = async (req, res) => {
+
+  console.log(req.user)
   try {
     const { rows } = await pool.query(
       `SELECT * FROM public.resumes WHERE id=$1 AND user_id=$2`,

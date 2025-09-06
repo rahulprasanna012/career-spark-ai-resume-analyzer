@@ -26,7 +26,7 @@ const Navbar = () => {
 
 
   return (
-    <header className="md:p-2 md:border-b-2 border-gray-100 flex flex-col md:flex-row md:justify-between md:items-center md:px-16">
+    <header className="md:p-2 md:border-b-2 bg-white border-gray-100 flex flex-col md:flex-row md:justify-between md:items-center md:px-16">
       {/* Brand + Mobile Auth */}
       <div className="flex items-center justify-between p-3 px-6 w-full md:w-auto">
         <div className="flex items-center">
