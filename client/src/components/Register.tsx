@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from './Input'
 import Button from './Button'
 import type { RegisterTypes } from '../types/auth'
-
+import { register } from '../services/auth'
+import  Cookies from "js-cookie"
 
 export default function Register() {
   const [formData, setFormData] = useState<RegisterTypes>({
@@ -12,6 +13,16 @@ export default function Register() {
     password: '',
   })
   const [loading, setLoading] = useState(false)
+  const navigate=useNavigate()
+
+    useEffect(()=>{
+
+      const token=Cookies.get("token")
+
+      if (token) navigate("/")
+
+
+  },[])
 
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +33,9 @@ export default function Register() {
     e.preventDefault()
     setLoading(true)
     try {
-      console.log(formData)
-      
+       await register(formData)
+       navigate("/")
+
     } finally {
       setLoading(false)
     }

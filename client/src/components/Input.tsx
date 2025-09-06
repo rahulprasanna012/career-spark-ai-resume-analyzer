@@ -1,5 +1,5 @@
 import type React from "react"
-import type { InputTypes, RegisterTypes } from "../types/auth"
+import type { InputTypes } from "../types/auth"
 
  const Input:React.FC<InputTypes> =({
   label,

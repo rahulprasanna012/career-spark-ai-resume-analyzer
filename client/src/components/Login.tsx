@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from './Input'
 import Button from './Button'
 import type { LoginTypes } from '../types/auth'
+import { login } from '../services/auth'
+import  Cookies from "js-cookie"
 
 export default function Login() {
+    const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<LoginTypes>({
     email: '',
     password: '',
   })
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+
+  useEffect(()=>{
+
+      const token=Cookies.get("token")
+
+      if (token) navigate("/")
+
+
+  },[])
+
+
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -20,7 +33,8 @@ export default function Login() {
     e.preventDefault()
     setLoading(true)
     try {
-     console.log(formData)
+
+      await login(formData)
       navigate('/')
     } finally {
       setLoading(false)

@@ -12,6 +12,8 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.46.1",
     "@tailwindcss/vite": "^4.1.13",
+    "axios": "^1.11.0",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",

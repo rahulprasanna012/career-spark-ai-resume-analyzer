@@ -6,6 +6,7 @@ import Register from './components/Register'
 import MainLayout from './layout/MainLayout'
 import AnalyzePage from './pages/AnalyzePage'
 import HistoryPage from './pages/HistoryPage'
+import ProtectedRoute from './hooks/ProtectedRoute'
 
 const App = () => {
   return (
@@ -18,9 +19,9 @@ const App = () => {
 
         <Route element={<MainLayout/>}>
 
-              <Route index element={<AnalyzePage/>}/>
-              <Route path='/analyze' element={<AnalyzePage/>}/>
-              <Route path='/history' element={< HistoryPage/>}/>
+              <Route index element={<ProtectedRoute><AnalyzePage/></ProtectedRoute>}/>
+              <Route path='/analyze' element={<ProtectedRoute><AnalyzePage/></ProtectedRoute>}/>
+              <Route path='/history' element={<ProtectedRoute>< HistoryPage/></ProtectedRoute>}/>
 
 
         </Route>
