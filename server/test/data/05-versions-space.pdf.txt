@@ -1,0 +1,97 @@
+
+
+Prasanna S 
+Coimbatore, Tamil Nadu, 641007 |  6380258932 |  rahulprasanna012@gmail.com 
+https://www.linkedin.com/in/prasanna-samson/ 
+https://github.com/rahulprasanna012 
+EDUCATION 
+Nxtwave Disruptive Technologies 
+Industry Ready Certification in Full-stack Development 
+Feb 2023 - Ongoing 
+Coimbatore Institute of Engineering and Technology, Coimbatore 
+BE (Bachelor of Engineering)_Computer Science Engineering (CSE) (7.8 CGPA) 
+2021 - 2025 
+infant jesus matriculation higher secondary school, Devakottai 
+Intermediate_MPC (88.88%)   
+2019 - 2021 
+Infant Jesus Matriculation Higher Secondary School, Devakottai 
+Secondary School Of Certificate (87.0%)   
+2018 - 2019 
+SKILLS 
+Frontend:  HTML, CSS, Bootstrap, JavaScript, React.js  
+Backend:  Python, Express, Node.js  
+Databases:  SQLite  
+Other skills: Express(node), Flexbox, Git, OOPs, User Interface (UI) 
+Design 
+ 
+  
+              
+PROJECTS 
+Nxt Watch (prasannawatch.ccbp.tech)                                                                                          
+Built the Nxt Watch application, modelled after YouTube, enabling users to log in, explore video categories 
+such as Trending and Gaming, access saved videos, and search for specific content while adjusting the interface 
+theme. 
+● Developed Login, Home, Trending, Gaming, and Saved videos pages utilising React components, props, 
+state management, lists, and event handling. 
+● Facilitated user authentication with username/password input, login API calls, and maintained persistent 
+login states using JWT tokens and local storage. 
+● Incorporated React Router components for distinct routes and protected access, redirecting 
+unauthenticated users to the login page. 
+Technologies used: React JS, JavaScript, CSS, Bootstrap, Routing, REST API Calls, Local Storage, JWT 
+Token, Authorization, Authentication.          
+Nxt Trendz ( ECommerce Clone - Amazon, Flipkart) (prasannapro7.ccbp.tech) 
+Developed a cutting-edge e-commerce platform inspired by Amazon and Flipkart. 
+● Built pages for Login, Products, and Product details with React Router, React components, form inputs, 
+and event handlers. 
+● Enabled secure authentication and authorization with JWT tokens and REST API calls. 
+Technologies used: React JS, JS, CSS, Bootstrap, Routing, REST API Calls, Local Storage, JWT Token, 
+Authorization, Authentication        
+Food Munch (wikisearchme.ccbp.tech) 
+Discover the world of food with this responsive website that showcases a comprehensive list of food items. 
+ 
+
+● Designed with a user-centric approach, this website features HTML structure elements and Bootstrap 
+components to ensure a seamless experience. 
+● Get a closer look at the food items with product videos, available at the click of a button. 
+Technologies used: HTML, CSS, Bootstrap 
+Voice Assistant Using Python () 
+Created a voice-controlled personal assistant that automates daily tasks and responds conversationally using 
+speech recognition and text-to-speech technologies. 
+ 
+     ●  Designed and implemented a speech-based interaction system using  
+         SpeechRecognition, pyttsx3, and gTTS for seamless user communication. 
+     ●  Automated essential tasks such as date/time retrieval, web searches, application  
+         launching, and weather/news updates.  
+     ●  Integrated external APIs (Wikipedia, OpenWeatherMap, NewsAPI) to deliver real-time  
+          information in response to user queries. 
+ 
+Technologies used: Python, SpeechRecognition, pyttsx3, gTTS, Webbrowser, Requests, REST API integration 
+(Wikipedia, Weather, News) 
+Technologies used: Python, Git, GitHub  
+WORK EXPERIENCE  
+XYLOINC (Application Developer Intern)   Jul 2024 - Oct 2024 
+Coimbatore, Tamil Nadu 
+Vibstech Education Platform: Developed an innovative e-learning platform using React.js, Tailwind CSS, 
+and Firebase, enhancing user engagement with interactive tools and flexible course offerings in SAP, 
+AR/VR, and cybersecurity. 
+ 
+Idzone Digital Identity Management System: Led a team of five in planning and architecting the Idzone 
+project, a comprehensive digital identity management system utilizing Reactjs and Tailwind CSS. 
+Demonstrated strong leadership and project management skills by ensuring project milestones were met on 
+time and to high-quality standards. 
+ 
+Technical Skills: Gained hands-on experience with modern web technologies and frameworks, significantly 
+enhancing my development skills and team collaboration capabilities. 
+ 
+ 
+ACHIEVEMENTS  
+Top 10 Finalist, TechnoVerse Hackathon    
+Participated in the regional-level TechnoVerse Hackathon organized by Cognizant. Developed a Generative 
+AI application that suggests health insurance policies tailored to user requirements, securing a position 
+among the top 10 teams out of 150 participants. This experience enhanced my problem-solving abilities and 
+showcased my capacity for innovative thinking in technology. 
+Consistent Learner – NxtWave CCBP 4.0 Academy 
+ 
+Maintained a learning streak of 250+ consecutive days on the NxtWave platform, demonstrating strong 
+discipline, time management, and commitment to continuous upskilling in full-stack development and 
+emerging technologies. 
