@@ -1,4 +1,3 @@
-import React from 'react'
 import HeaderText from './HeaderText';
 import { RefreshCw } from 'lucide-react';
 
@@ -19,10 +18,10 @@ const Result = ({result}:any) => {
 
             </div>
 
-            <button className='flex items-center font-semibold btn btn-neutral btn-outline hover:bg-indigo-600 hover:border-0'>
+            <button className='flex items-center font-semibold p-2 rounded-md hover:text-white border-2 cursor-pointer hover:bg-indigo-600 hover:border-0'>
                 <RefreshCw size={16} />
                 
-                <span className='text-lg'>Analyze Another</span>
+                <span className='text-lg ml-1'>Analyze Another</span>
             </button>
 
 
