@@ -17,6 +17,9 @@ export default function Login() {
   useEffect(()=>{
 
       const token=Cookies.get("token")
+      
+
+      console.log(token)
 
       if (token) navigate("/")
 

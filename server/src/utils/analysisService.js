@@ -5,8 +5,7 @@ const MAX_CHARS = Number(process.env.GEMINI_MAX_CHARS || 24000);
 const MOCK = process.env.MOCK_GEMINI === 'true';
 
 const STRUCT_PROMPT = (resumeText) => `
-You are an expert technical recruiter + ATS. Analyze the resume and return ONLY valid JSON.
-Do not include any text before/after the JSON.
+You are an expert technical recruiter + ATS. Return ONLY valid JSON (no prose).
 
 Resume:
 """
@@ -20,7 +19,7 @@ Return JSON exactly in this shape:
   "phone": "string|null",
   "linkedin_url": "string|null",
   "portfolio_url": "string|null",
-  "summary": "string|null",
+  "summary": "string",  // REQUIRED: 2–3 sentences, do not return null
 
   "work_experience": [{"role":"string","company":"string","duration":"string","description":["string"]}],
   "education": [{"degree":"string","institution":"string","graduation_year":"string"}],
@@ -38,9 +37,11 @@ Return JSON exactly in this shape:
   }
 }
 Rules:
-- "overall_rating" is 1-10 integer.
-- "ats_score" is 0-100 integer (based on clarity, keywords, contact info, structure).
+- "summary" MUST be 2–3 concise sentences that sell the candidate; never null.
+- "overall_rating" is 1–10 integer.
+- "ats_score" is 0–100 integer (clarity, keywords, contact info, structure).
 `;
+
 
 function parseJsonFromText(raw) {
   const s = raw.indexOf('{'); const e = raw.lastIndexOf('}');

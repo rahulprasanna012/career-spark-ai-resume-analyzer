@@ -32,7 +32,11 @@ export const register = async (data: RegisterTypes) => {
     if (res.data.token &&res.data.user) {
 
     localStorage.setItem("user",JSON.stringify(res.data.user))        
-      Cookies.set("token", res.data.token, { expires: 7 }); 
+      Cookies.set(res.data.token, res.data.token, {
+      expires: 7,
+      sameSite: "Lax",
+      path: "/",
+    });
     }
 
     return res.data; 

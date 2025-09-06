@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { pool } from '../config/db.js';
-import { cookieOptions, sign } from '../utils/auth.js';
+import { sign } from '../utils/auth.js';
 
 // REGISTER
 export const register = async (req, res) => {
@@ -21,7 +21,7 @@ export const register = async (req, res) => {
     const token = sign(rows[0]);
 
     // send both cookie + body
-    res.cookie('token', token, cookieOptions).json({
+    res.json({
       user: rows[0],
       token
     });
@@ -50,7 +50,7 @@ export const login = async (req, res) => {
     const token = sign(user);
 
    
-    res.cookie('token', token, cookieOptions).json({
+    res.json({
       user: { id: user.id, name: user.name, email: user.email },
       token
     });
