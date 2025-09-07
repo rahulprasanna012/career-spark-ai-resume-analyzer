@@ -1,3 +1,4 @@
+// geminiResumeAnalyzer.js
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
@@ -19,7 +20,6 @@ Return JSON exactly in this shape:
   "phone": "string|null",
   "linkedin_url": "string|null",
   "portfolio_url": "string|null",
-  "summary": "string",  // REQUIRED: 2–3 sentences, do not return null
 
   "work_experience": [{"role":"string","company":"string","duration":"string","description":["string"]}],
   "education": [{"degree":"string","institution":"string","graduation_year":"string"}],
@@ -32,16 +32,18 @@ Return JSON exactly in this shape:
     "strengths": ["bullet", "bullet"],
     "areas_to_improve": ["bullet", "bullet"],
     "suggested_skills": ["skill", "skill"],
+    "overall_feedback": "string",  // REQUIRED: 2–3 sentences that sell the candidate
     "overall_rating": 0,
     "ats_score": 0
   }
 }
 Rules:
-- "summary" MUST be 2–3 concise sentences that sell the candidate; never null.
+- "overall_feedback" MUST be 2–3 concise sentences; never null.
 - "overall_rating" is 1–10 integer.
 - "ats_score" is 0–100 integer (clarity, keywords, contact info, structure).
 `;
 
+// --- parsing & heuristics ---
 
 function parseJsonFromText(raw) {
   const s = raw.indexOf('{'); const e = raw.lastIndexOf('}');
@@ -49,7 +51,6 @@ function parseJsonFromText(raw) {
   try { return JSON.parse(txt); } catch { return {}; }
 }
 
-// Simple ATS fallback if model omits it
 function heuristicATS(data) {
   let score = 50;
   const hasContact = (data.email || data.phone || data.linkedin_url) ? 1 : 0;
@@ -61,13 +62,11 @@ function heuristicATS(data) {
   score += Math.min(20, skills * 2);
   score += Math.min(15, exp * 3);
   score += Math.min(5, edu * 2);
-  // Penalize long empty summary
-  if (!data.summary) score -= 5;
+  if (!data.feedback_summary?.overall_feedback) score -= 5;
 
   return Math.max(0, Math.min(100, score));
 }
 
-// Fallback strengths if missing
 function heuristicStrengths(data) {
   const out = [];
   if ((data.technical_skills || []).length >= 5) out.push('Good breadth of technical skills');
@@ -77,6 +76,23 @@ function heuristicStrengths(data) {
   if (!out.length) out.push('Clear formatting and basic information present');
   return out;
 }
+
+// Always produce a short, crisp overall line if missing
+function genOverallFeedback({ overall_rating, ats_score, fallback }) {
+  if (overall_rating >= 8 || ats_score >= 85) return 'This resume is strong and market-ready.';
+  if (overall_rating >= 6 || ats_score >= 70) return 'This resume showcases a solid foundation.';
+  if (overall_rating >= 4 || ats_score >= 55) return 'This resume is promising but needs refinement.';
+  if (fallback) {
+    const s = String(fallback)
+      .split(/[.?!]/)
+      .map((t) => t.trim())
+      .filter(Boolean)[0];
+    if (s && s.length <= 100) return s.endsWith('.') ? s : s + '.';
+  }
+  return 'This resume needs restructuring to meet hiring expectations.';
+}
+
+// --- normalization ---
 
 function normalize(d = {}) {
   const fb = d.feedback_summary || {};
@@ -89,7 +105,6 @@ function normalize(d = {}) {
     phone: d.phone ?? null,
     linkedin_url: d.linkedin_url ?? null,
     portfolio_url: d.portfolio_url ?? null,
-    summary: d.summary ?? null,
 
     work_experience: d.work_experience ?? [],
     education: d.education ?? [],
@@ -102,51 +117,68 @@ function normalize(d = {}) {
       strengths: fb.strengths ?? [],
       areas_to_improve: fb.areas_to_improve ?? (d.improvement_areas ? [d.improvement_areas] : []),
       suggested_skills: fb.suggested_skills ?? (d.upskill_suggestions ?? []),
+      overall_feedback: fb.overall_feedback ?? '',
       overall_rating: overall,
       ats_score: ats
     },
 
-    // keep legacy fields populated too (for DB compatibility)
+    // legacy compatibility
     resume_rating: overall,
     improvement_areas: (fb.areas_to_improve?.join?.('; ') || d.improvement_areas || null),
     upskill_suggestions: fb.suggested_skills ?? (d.upskill_suggestions ?? [])
   };
 
-  // Fill ATS & strengths if missing
   if (!norm.feedback_summary.ats_score) {
     norm.feedback_summary.ats_score = heuristicATS(norm);
   }
   if (!norm.feedback_summary.strengths?.length) {
     norm.feedback_summary.strengths = heuristicStrengths(norm);
   }
+  if (!norm.feedback_summary.overall_feedback) {
+    norm.feedback_summary.overall_feedback = genOverallFeedback({
+      overall_rating: norm.feedback_summary.overall_rating,
+      ats_score: norm.feedback_summary.ats_score,
+      fallback: null
+    });
+  }
 
   return norm;
 }
 
+// --- mock path ---
+
 function mockAnalysis() {
   return normalize({
-    name: "Sample Candidate",
-    email: "sample@example.com",
-    phone: "+1-555-123-4567",
-    linkedin_url: "https://www.linkedin.com/in/sample",
-    summary: "Full-stack developer (React/Node) with 3+ years.",
+    name: 'Sample Candidate',
+    email: 'sample@example.com',
+    phone: '+1-555-123-4567',
+    linkedin_url: 'https://www.linkedin.com/in/sample',
+    portfolio_url: null,
     work_experience: [
-      { role: "Frontend Dev", company: "Acme", duration: "2022–Present", description: ["Built React UI", "Optimized performance"] }
+      {
+        role: 'Frontend Dev',
+        company: 'Acme',
+        duration: '2022–Present',
+        description: ['Built React UI', 'Optimized performance']
+      }
     ],
-    education: [{ degree: "B.Tech CSE", institution: "ABC University", graduation_year: "2021" }],
-    technical_skills: ["React", "Node.js", "PostgreSQL", "Docker", "Git"],
-    soft_skills: ["Communication", "Teamwork"],
-    projects: [{ title: "E-commerce", tech: ["React", "Express", "Postgres"], summary: "Checkout, payments, admin" }],
-    certifications: ["AWS Cloud Practitioner"],
+    education: [{ degree: 'B.Tech CSE', institution: 'ABC University', graduation_year: '2021' }],
+    technical_skills: ['React', 'Node.js', 'PostgreSQL', 'Docker', 'Git'],
+    soft_skills: ['Communication', 'Teamwork'],
+    projects: [{ title: 'E-commerce', tech: ['React', 'Express', 'Postgres'], summary: 'Checkout, payments, admin' }],
+    certifications: ['AWS Cloud Practitioner'],
     feedback_summary: {
-      strengths: ["Strong JS/React foundation", "Hands-on project work"],
-      areas_to_improve: ["Add test coverage metrics", "Quantify impact with numbers"],
-      suggested_skills: ["TypeScript", "CI/CD", "System Design"],
+      strengths: ['Strong JS/React foundation', 'Hands-on project work'],
+      areas_to_improve: ['Add test coverage metrics', 'Quantify impact with numbers'],
+      suggested_skills: ['TypeScript', 'CI/CD', 'System Design'],
+      overall_feedback: 'This resume showcases a solid foundation.',
       overall_rating: 7,
       ats_score: 82
     }
   });
 }
+
+// --- main API ---
 
 export async function analyzeWithGemini(resumeText) {
   if (MOCK) return mockAnalysis();
@@ -159,3 +191,14 @@ export async function analyzeWithGemini(resumeText) {
   const raw = await result.response.text();
   return normalize(parseJsonFromText(raw));
 }
+
+// Optional named exports
+export {
+  STRUCT_PROMPT,
+  parseJsonFromText,
+  heuristicATS,
+  heuristicStrengths,
+  genOverallFeedback,
+  normalize,
+  mockAnalysis
+};

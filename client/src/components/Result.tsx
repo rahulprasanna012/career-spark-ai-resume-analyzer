@@ -1,5 +1,16 @@
 import HeaderText from "./HeaderText";
-import { ExternalLink, Mail, PhoneCall, RefreshCw, TrendingUp, User } from "lucide-react";
+import {
+  CodeXml,
+  ExternalLink,
+  Lightbulb,
+  Mail,
+  PhoneCall,
+  RefreshCw,
+  Star,
+  TrendingUp,
+  TriangleAlert,
+  User,
+} from "lucide-react";
 
 const result = {
   id: 10,
@@ -133,7 +144,30 @@ const result = {
 };
 
 const Result = () => {
-  const { name, resume_rating, ats_score, summary,phone,email,linkedin_url } = result;
+  const {
+    name,
+    resume_rating,
+    ats_score,
+    summary,
+    phone,
+    email,
+    linkedin_url,
+    strengths,
+    improvement_areas,
+    upskill_suggestions,
+    technical_skills,
+    soft_skills
+  } = result;
+
+  const areas_to_improve = convertIntoList(improvement_areas);
+
+  function convertIntoList(text: string): string[] {
+    if (!text) return [];
+    return text
+      .split(/[,;]+/)
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0);
+  }
 
   console.log(result);
 
@@ -200,40 +234,136 @@ const Result = () => {
         </div>
       </div>
 
-        <div className="  my-6  rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center">
-                    <User/>
-                    <h1 className="ml-2 text-2xl font-semibold ">Personal Details</h1>
-
-            </div>
-            
-            <div className="  my-6 grid md:grid-cols-2 gap-6 ">
-                    <div>
-                <p className="text-gray-600 font-medium">Name</p>
-                <p >{name}</p>
-                <p className="flex items-center mt-2"><PhoneCall size={18} className="mr-2"/> {phone}</p>
-            </div>
-
-            <div>
-                <a href={`mailto:${email}`} className="flex items-center">
-                    <Mail size={18} className="mr-2"/>
-                    <span className="hover:text-indigo-600 hover:underline">{email}</span>
-
-
-                </a>
-                 <a href={`${linkedin_url}`} className="flex items-center mt-3" target="_blank">
-                    <ExternalLink size={18} className="mr-2"/>
-                    <span className="hover:text-indigo-600 hover:underline">Linkedin Profile</span>
-
-
-                </a>
-
-            </div>
-            </div>
-            
-
-
+      <div className="  my-6  rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="flex items-center">
+          <User />
+          <h1 className="ml-2 text-2xl font-semibold ">Personal Details</h1>
         </div>
+
+        <div className="  my-6 grid md:grid-cols-2 gap-6 ">
+          <div>
+            <p className="text-gray-600 font-medium">Name</p>
+            <p>{name}</p>
+            <p className="flex items-center mt-2">
+              <PhoneCall size={18} className="mr-2" /> {phone}
+            </p>
+          </div>
+
+          <div>
+            <a href={`mailto:${email}`} className="flex items-center">
+              <Mail size={18} className="mr-2" />
+              <span className="hover:text-indigo-600 hover:underline">
+                {email}
+              </span>
+            </a>
+            <a
+              href={`${linkedin_url}`}
+              className="flex items-center mt-3"
+              target="_blank"
+            >
+              <ExternalLink size={18} className="mr-2" />
+              <span className="hover:text-indigo-600 hover:underline">
+                Linkedin Profile
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="  my-6  rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm">
+          <h1 className="flex items-center text-green-800">
+            <Star />{" "}
+            <span className="ml-2 text-2xl font-semibold ">Strengths</span>{" "}
+          </h1>
+
+          <ul className="list-disc my-6 px-6 marker:text-green-400 ">
+            {strengths.map((item, idx) => (
+              <li className="my-3" key={idx}>
+                {item}.
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="my-6  rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <h1 className="flex items-center text-amber-800">
+            <TriangleAlert />{" "}
+            <span className="ml-2 text-2xl font-semibold ">
+              Areas to Improve
+            </span>{" "}
+          </h1>
+
+          <ul className="list-disc my-6 px-6 marker:text-amber-400 ">
+            {areas_to_improve.map((item, idx) => (
+              <li className="my-3" key={idx}>
+                {item}.{" "}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="my-6  rounded-2xl border border-indigo-200 bg-indigo-50 p-6 shadow-sm">
+          <h1 className="flex items-center text-indigo-800">
+            <Lightbulb />{" "}
+            <span className="ml-2 text-2xl font-semibold ">
+              Suggested Skills
+            </span>{" "}
+          </h1>
+
+          <ul className="flex flex-wrap gap-3 my-6 ">
+            {upskill_suggestions.map((item, idx) => (
+              <li
+                key={idx}
+                className="px-3 py-1 rounded-3xl text-indigo-600 font-semibold bg-indigo-200"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="my-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+
+  <div className="flex items-center gap-2 mb-4">
+    <CodeXml className="w-6 h-6 text-gray-700" />
+    <h1 className="text-2xl font-semibold text-gray-800">Skills Identified</h1>
+  </div>
+
+
+  <div className="mb-6">
+    <h2 className="text-lg font-semibold text-gray-700 mb-3">Technical Skills</h2>
+    <ul className="flex flex-wrap gap-3">
+      {technical_skills.map((item, idx) => (
+        <li
+          key={idx}
+          className="px-3 py-1 rounded-3xl bg-indigo-100 text-indigo-700 font-medium text-sm"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+
+  <div>
+    <h2 className="text-lg font-semibold text-gray-700 mb-3">Soft Skills</h2>
+    <ul className="flex flex-wrap gap-3">
+      {soft_skills.map((item, idx) => (
+        <li
+          key={idx}
+          className="px-3 py-1 rounded-3xl bg-emerald-100 text-emerald-700 font-medium text-sm"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+      
+
 
     </section>
   );
