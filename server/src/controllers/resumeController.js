@@ -56,7 +56,7 @@ export const uploadResume = async (req, res) => {
 export const getAllResumes = async (req, res) => {
   try {
     const { rows } = await pool.query(
-      `SELECT id, file_name, uploaded_at, name, email, resume_rating
+      `SELECT id, file_name, uploaded_at, name, email, resume_rating,ats_score
        FROM public.resumes
        WHERE user_id = $1
        ORDER BY uploaded_at DESC`,

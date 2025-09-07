@@ -12,138 +12,9 @@ import {
   User,
 } from "lucide-react";
 
-const result = {
-  id: 10,
-  user_id: 1,
-  file_name: "Prasanna_2025-06-11-172559.pdf",
-  uploaded_at: "2025-09-06T18:21:25.675Z",
-  name: "Prasanna S",
-  email: "rahulprasanna012@gmail.com",
-  phone: "6380258932",
-  linkedin_url: "https://www.linkedin.com/in/prasanna-samson/",
-  portfolio_url: "https://github.com/rahulprasanna012",
-  summary:
-    "A highly motivated and results-oriented full-stack developer with proven experience in building web applications and e-commerce platforms.  Proficient in React, Node.js, Python, and various other technologies, seeking a challenging role to leverage skills and contribute to innovative projects.  Demonstrated leadership and teamwork abilities through successful project completion.",
-  work_experience: [
-    {
-      role: "Application Developer Intern",
-      company: "XYLOINC",
-      duration: "Jul 2024 - Oct 2024",
-      description: [
-        "Developed an innovative e-learning platform using React.js, Tailwind CSS, and Firebase, enhancing user engagement.",
-        "Led a team of five in planning and architecting the Idzone project, a comprehensive digital identity management system utilizing Reactjs and Tailwind CSS.",
-        "Gained hands-on experience with modern web technologies and frameworks, significantly enhancing development skills and team collaboration capabilities.",
-      ],
-    },
-  ],
-  education: [
-    {
-      degree: "BE (Bachelor of Engineering)_Computer Science Engineering (CSE)",
-      institution:
-        "Coimbatore Institute of Engineering and Technology, Coimbatore",
-      graduation_year: "2025",
-    },
-    {
-      degree: "Industry Ready Certification in Full-stack Development",
-      institution: "Nxtwave Disruptive Technologies",
-      graduation_year: "Ongoing",
-    },
-  ],
-  technical_skills: [
-    "HTML",
-    "CSS",
-    "Bootstrap",
-    "JavaScript",
-    "React.js",
-    "Python",
-    "Express",
-    "Node.js",
-    "SQLite",
-    "Flexbox",
-    "Git",
-    "OOPs",
-    "Tailwind CSS",
-    "Firebase",
-    "JWT",
-    "REST API",
-  ],
-  soft_skills: [
-    "Leadership",
-    "Teamwork",
-    "Problem-solving",
-    "Communication",
-    "Time Management",
-  ],
-  projects: [
-    {
-      tech: [
-        "React JS",
-        "JavaScript",
-        "CSS",
-        "Bootstrap",
-        "Routing",
-        "REST API Calls",
-        "Local Storage",
-        "JWT Token",
-        "Authorization",
-        "Authentication",
-      ],
-      title: "Nxt Watch",
-      summary:
-        "Built a YouTube clone application enabling user login, video exploration, and content search with theme adjustments.",
-    },
-    {
-      tech: [
-        "React JS",
-        "JS",
-        "CSS",
-        "Bootstrap",
-        "Routing",
-        "REST API Calls",
-        "Local Storage",
-        "JWT Token",
-        "Authorization",
-        "Authentication",
-      ],
-      title: "Nxt Trendz (ECommerce Clone)",
-      summary:
-        "Developed an e-commerce platform with features for login, product browsing, and detailed views.",
-    },
-    {
-      tech: ["HTML", "CSS", "Bootstrap"],
-      title: "Food Munch",
-      summary:
-        "Created a responsive website showcasing food items with product videos.",
-    },
-    {
-      tech: [
-        "Python",
-        "SpeechRecognition",
-        "pyttsx3",
-        "gTTS",
-        "Webbrowser",
-        "Requests",
-        "REST API integration (Wikipedia, Weather, News)",
-      ],
-      title: "Voice Assistant Using Python",
-      summary:
-        "Developed a voice-controlled personal assistant automating tasks and responding conversationally.",
-    },
-  ],
-  certifications: ["Industry Ready Certification in Full-stack Development"],
-  resume_rating: 8,
-  improvement_areas:
-    "Expand backend technology experience beyond Node.js and Python; Showcase more complex projects demonstrating advanced concepts",
-  upskill_suggestions: ["AWS", "Docker", "Testing frameworks (Jest, Cypress)"],
-  strengths: [
-    "Strong full-stack development skills",
-    "Successful project completion record",
-    "Demonstrated leadership and teamwork abilities",
-  ],
-  ats_score: 85,
-};
 
-const Result = () => {
+
+const Result = ({result,handleRefesh}:any) => {
   const {
     name,
     resume_rating,
@@ -169,7 +40,7 @@ const Result = () => {
       .filter((item) => item.length > 0);
   }
 
-  console.log(result);
+
 
   return (
     <section className="w-full bg-indigo-50/15 max-w-6xl mx-auto p-4">
@@ -184,6 +55,8 @@ const Result = () => {
         <button
           type="button"
           className="inline-flex items-center px-4 py-2 rounded-md border-2 border-indigo-600 text-indigo-600 font-semibold text-base hover:bg-indigo-600 hover:text-white transition-colors"
+        
+          onClick={handleRefesh}
         >
           <RefreshCw size={18} className="mr-2" />
           <span>Analyze Another</span>
@@ -278,9 +151,9 @@ const Result = () => {
           </h1>
 
           <ul className="list-disc my-6 px-6 marker:text-green-400 ">
-            {strengths.map((item, idx) => (
+            {strengths.map((item: string, idx: number) => (
               <li className="my-3" key={idx}>
-                {item}.
+              {item}.
               </li>
             ))}
           </ul>
@@ -312,12 +185,12 @@ const Result = () => {
           </h1>
 
           <ul className="flex flex-wrap gap-3 my-6 ">
-            {upskill_suggestions.map((item, idx) => (
+            {upskill_suggestions.map((item: string, idx: number) => (
               <li
-                key={idx}
-                className="px-3 py-1 rounded-3xl text-indigo-600 font-semibold bg-indigo-200"
+              key={idx}
+              className="px-3 py-1 rounded-3xl text-indigo-600 font-semibold bg-indigo-200"
               >
-                {item}
+              {item}
               </li>
             ))}
           </ul>
@@ -335,7 +208,7 @@ const Result = () => {
   <div className="mb-6">
     <h2 className="text-lg font-semibold text-gray-700 mb-3">Technical Skills</h2>
     <ul className="flex flex-wrap gap-3">
-      {technical_skills.map((item, idx) => (
+      {technical_skills.map((item: string, idx: number) => (
         <li
           key={idx}
           className="px-3 py-1 rounded-3xl bg-indigo-100 text-indigo-700 font-medium text-sm"
@@ -350,7 +223,7 @@ const Result = () => {
   <div>
     <h2 className="text-lg font-semibold text-gray-700 mb-3">Soft Skills</h2>
     <ul className="flex flex-wrap gap-3">
-      {soft_skills.map((item, idx) => (
+      {soft_skills.map((item: string, idx: number) => (
         <li
           key={idx}
           className="px-3 py-1 rounded-3xl bg-emerald-100 text-emerald-700 font-medium text-sm"

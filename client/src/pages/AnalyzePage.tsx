@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import api from "../utils/api";
 
 import Loader from "../components/Loader";
@@ -14,20 +14,6 @@ export default function ResumeUploader() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
 
-  useEffect(()=>{
-
-    const ans=localStorage.getItem('result')
-
-    if (ans!==null){
-        setResult(ans)
-    }
-    else{
-      setResult(null)
-    }
-    
-    
-
-  },[])
 
   const openPicker = () => inputRef.current?.click();
 
@@ -90,11 +76,18 @@ export default function ResumeUploader() {
     setDragOver(false);
   }, []);
 
+
+  const handleRefesh=()=>{
+      setResult(null)
+      setFileName("")
+
+  }
+
   // Loading state
   if (loading)return <Loader/>
 
   // Result state (simplified)
-  if (true) return <Result  />
+  if (result) return <Result  result={result} handleRefesh={handleRefesh}/>
   
 
   // Upload card
@@ -105,6 +98,7 @@ export default function ResumeUploader() {
     onDragLeave={onDragLeave} onDragOver={onDragOver}
     onDrop={onDrop}
     openPicker={openPicker}
+    
     />
   );
 }

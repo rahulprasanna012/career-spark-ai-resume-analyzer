@@ -1,8 +1,12 @@
+import React from "react";
+import ResumeHistory from "../components/ResumeHistory";
 
-const HistoryPage = () => {
+const HistoryPage: React.FC = () => {
   return (
-    <div>HistoryPage</div>
-  )
-}
+    <div className="px-5 md:px-8 py-6">
+      <ResumeHistory />
+    </div>
+  );
+};
 
-export default HistoryPage
+export default HistoryPage;
