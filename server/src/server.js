@@ -12,7 +12,6 @@ const app = express();
 app.use(cors({
   origin: [
     "http://ykssgogwsss0400k0gggs44s.31.97.230.12.sslip.io", 
-    "https://ykssgogwsss0400k0gggs44s.31.97.230.12.sslip.io" 
   ],
   credentials: true,
 }));
