@@ -1,3 +1,4 @@
+import type { ResumeFull } from "../types/resumes";
 import HeaderText from "./HeaderText";
 import {
   CodeXml,
@@ -14,7 +15,12 @@ import {
 
 
 
-const Result = ({result,handleRefesh}:any) => {
+type ResultProps = {
+  result: ResumeFull,
+  handleRefesh: () => void;
+};
+
+const Result = ({ result, handleRefesh }: ResultProps) => {
   const {
     name,
     resume_rating,
@@ -32,7 +38,7 @@ const Result = ({result,handleRefesh}:any) => {
 
   const areas_to_improve = convertIntoList(improvement_areas);
 
-  function convertIntoList(text: string): string[] {
+  function convertIntoList(text: string|null): string[] {
     if (!text) return [];
     return text
       .split(/[,;]+/)

@@ -4,10 +4,11 @@ import api from "../utils/api";
 import Loader from "../components/Loader";
 import Result from "../components/Result";
 import UploadSection from "../components/UploadSection";
+import type { ResumeFull } from "../types/resumes";
 
 export default function ResumeUploader() {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<ResumeFull | null>(null);
   const [error, setError] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [dragOver, setDragOver] = useState(false);

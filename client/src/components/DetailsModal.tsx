@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { X, Star, TrendingUp, FileText, BadgeCheck, Lightbulb, Wrench } from "lucide-react";
 import api from "../utils/api";
 import type{ ResumeFull } from "../types/resumes";
-import { chip, cx } from "../utils/fmt";
+import { chip} from "../utils/fmt";
 
 const Pill: React.FC<{ children: React.ReactNode; tone?: "indigo" | "emerald" | "slate" }> = ({ children, tone = "slate" }) => {
   const tones = {
@@ -48,7 +48,7 @@ const DetailsModal: React.FC<Props> = ({ id, open, onClose }) => {
         if (!mounted) return;
         setData(data);
         setTimeout(() => closeBtnRef.current?.focus(), 0);
-      } catch (e: any) {
+      } catch (e:any) {
         if (mounted) setErr(e?.response?.data?.error || e?.message || "Failed to load details");
       } finally {
         if (mounted) setLoading(false);

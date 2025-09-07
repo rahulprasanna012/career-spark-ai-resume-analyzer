@@ -54,6 +54,10 @@ const ResumeHistory: React.FC = () => {
   const openDetails = (id: number) => { setOpenId(id); setIsOpen(true); };
   const closeDetails = () => setIsOpen(false);
 
+    if (err){
+      alert(err)
+    }
+
   return (
     <section className="w-full">
       <div className="mb-4">

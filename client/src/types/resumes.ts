@@ -6,8 +6,8 @@ export type ResumeListRow = {
   uploaded_at: string;             // ISO string
   name: string | null;
   email: string | null;
-  resume_rating: number | null;    // 1–10
-  ats_score: number | null;        // 0–100
+  resume_rating: number ;    
+  ats_score: number ;        
 };
 
 // For nested structures
